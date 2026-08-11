@@ -1,8 +1,3 @@
-// models/Item.js
-//
-// A "model" is a blueprint for what one document in the MongoDB
-// collection looks like. Every item posted follows this shape.
-
 import mongoose from "mongoose";
 
 const itemSchema = new mongoose.Schema(
@@ -41,9 +36,14 @@ const itemSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    postedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
-    timestamps: true, // adds createdAt and updatedAt automatically
+    timestamps: true,
   }
 );
 
