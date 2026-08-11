@@ -7,9 +7,15 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import dns from "dns";
 import itemsRouter from "./routes/items.js";
 
 dotenv.config(); // loads variables from .env into process.env
+
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
+// Forces Node to use Cloudflare and Google's public DNS for lookups,
+// bypassing your network/ISP's default resolver — which is what was
+// blocking the mongodb+srv:// SRV record lookup.
 
 const app = express();
 
