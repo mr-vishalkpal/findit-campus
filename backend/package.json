@@ -1,5 +1,5 @@
 {
-  "name": "lost-found-backend",
+  "name": "findit-campus-backend",
   "version": "1.0.0",
   "description": "Backend API for Campus Lost & Found Portal",
   "main": "server.js",

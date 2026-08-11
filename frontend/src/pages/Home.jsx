@@ -31,44 +31,59 @@ function Home() {
   }, [search, typeFilter]);
 
   return (
-    <div>
-      <h1>Campus Lost & Found</h1>
+    <div className="max-w-4xl mx-auto px-6 py-8">
+      <h1 className="font-display text-3xl font-bold mb-6">Find what's lost. Return what's found.</h1>
 
-      <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
+      <div className="flex flex-col sm:flex-row gap-3 mb-8">
         <input
           type="text"
           placeholder="Search items..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 border border-line rounded-md px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-amber"
         />
-        <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-          <option value="">All</option>
-          <option value="lost">Lost</option>
-          <option value="found">Found</option>
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+          className="border border-line rounded-md px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-amber"
+        >
+          <option value="">All items</option>
+          <option value="lost">Lost only</option>
+          <option value="found">Found only</option>
         </select>
       </div>
 
-      {loading && <p>Loading items...</p>}
-      {error && <p>{error}</p>}
-      {!loading && !error && items.length === 0 && <p>No items found.</p>}
+      {loading && <p className="text-ink/60">Loading items...</p>}
+      {error && <p className="text-clay">{error}</p>}
+      {!loading && !error && items.length === 0 && (
+        <p className="text-ink/60">No items found. Be the first to post one.</p>
+      )}
 
-      <div>
+      <div className="grid gap-4 sm:grid-cols-2">
         {items.map((item) => (
-          <Link key={item._id} to={`/items/${item._id}`} style={{ textDecoration: "none", color: "inherit" }}>
+          <Link key={item._id} to={`/items/${item._id}`}>
             <div
-              style={{
-                border: "1px solid #ccc",
-                padding: "1rem",
-                marginBottom: "1rem",
-                opacity: item.resolved ? 0.6 : 1,
-              }}
+              className={`border border-line rounded-lg p-4 bg-white hover:shadow-md transition ${
+                item.resolved ? "opacity-50" : ""
+              }`}
             >
-              <h3>
-                {item.title} ({item.type})
-              </h3>
-              <p>{item.location}</p>
-              <p>{new Date(item.date).toLocaleDateString()}</p>
-              {item.resolved && <strong>Resolved</strong>}
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-display font-bold text-lg">{item.title}</h3>
+                <span
+                  className={`text-xs font-semibold px-2 py-1 rounded-full text-white ${
+                    item.type === "lost" ? "bg-clay" : "bg-teal"
+                  }`}
+                >
+                  {item.type.toUpperCase()}
+                </span>
+              </div>
+              <p className="text-sm text-ink/70">{item.location}</p>
+              <p className="text-sm text-ink/50">
+                {new Date(item.date).toLocaleDateString()}
+              </p>
+              {item.resolved && (
+                <p className="text-xs font-semibold text-teal mt-2">RESOLVED</p>
+              )}
             </div>
           </Link>
         ))}

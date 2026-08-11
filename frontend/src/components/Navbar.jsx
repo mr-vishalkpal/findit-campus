@@ -11,28 +11,36 @@ function Navbar() {
   }
 
   return (
-    <nav
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        padding: "1rem",
-        borderBottom: "1px solid #ccc",
-        marginBottom: "1.5rem",
-      }}
-    >
-      <Link to="/">Campus Lost & Found</Link>
+    <nav className="bg-navy text-paper px-6 py-4 flex justify-between items-center">
+      <Link to="/" className="font-display text-xl font-bold tracking-tight">
+  FindIt Campus
+</Link>
 
-      <div style={{ display: "flex", gap: "1rem" }}>
+      <div className="flex items-center gap-5 text-sm">
         {user ? (
           <>
-            <Link to="/post">Post Item</Link>
-            <span>Hi, {user.name}</span>
-            <button onClick={handleLogout}>Log Out</button>
+            <Link
+              to="/post"
+              className="bg-amber text-navy font-semibold px-4 py-2 rounded-md hover:opacity-90 transition"
+            >
+              Post Item
+            </Link>
+            <span className="text-paper/80">Hi, {user.name}</span>
+            <button onClick={handleLogout} className="hover:underline">
+              Log Out
+            </button>
           </>
         ) : (
           <>
-            <Link to="/login">Log In</Link>
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/login" className="hover:underline">
+              Log In
+            </Link>
+            <Link
+              to="/signup"
+              className="bg-amber text-navy font-semibold px-4 py-2 rounded-md hover:opacity-90 transition"
+            >
+              Sign Up
+            </Link>
           </>
         )}
       </div>

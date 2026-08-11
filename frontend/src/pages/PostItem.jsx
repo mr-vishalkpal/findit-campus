@@ -36,64 +36,59 @@ function PostItem() {
     }
   }
 
+  const inputClass =
+    "w-full border border-line rounded-md px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-amber";
+  const labelClass = "block text-sm font-semibold mb-1";
+
   return (
-    <div>
-      <h1>Post a Lost or Found Item</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-xl mx-auto px-6 py-8">
+      <h1 className="font-display text-2xl font-bold mb-6">Post a Lost or Found Item</h1>
+      <form onSubmit={handleSubmit} className="space-y-4 bg-white border border-line rounded-lg p-6">
         <div>
-          <label>Type</label>
-          <br />
-          <select name="type" value={formData.type} onChange={handleChange}>
+          <label className={labelClass}>Type</label>
+          <select name="type" value={formData.type} onChange={handleChange} className={inputClass}>
             <option value="lost">Lost</option>
             <option value="found">Found</option>
           </select>
         </div>
 
         <div>
-          <label>Title</label>
-          <br />
-          <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+          <label className={labelClass}>Title</label>
+          <input type="text" name="title" value={formData.title} onChange={handleChange} required className={inputClass} />
         </div>
 
         <div>
-          <label>Description</label>
-          <br />
-          <textarea name="description" value={formData.description} onChange={handleChange} required />
+          <label className={labelClass}>Description</label>
+          <textarea name="description" value={formData.description} onChange={handleChange} required rows={3} className={inputClass} />
         </div>
 
         <div>
-          <label>Location</label>
-          <br />
-          <input type="text" name="location" value={formData.location} onChange={handleChange} required />
+          <label className={labelClass}>Location</label>
+          <input type="text" name="location" value={formData.location} onChange={handleChange} required className={inputClass} />
         </div>
 
         <div>
-          <label>Date</label>
-          <br />
-          <input type="date" name="date" value={formData.date} onChange={handleChange} required />
+          <label className={labelClass}>Date</label>
+          <input type="date" name="date" value={formData.date} onChange={handleChange} required className={inputClass} />
         </div>
 
         <div>
-          <label>Image URL (optional)</label>
-          <br />
-          <input
-            type="text"
-            name="imageUrl"
-            value={formData.imageUrl}
-            onChange={handleChange}
-            placeholder="https://..."
-          />
+          <label className={labelClass}>Image URL (optional)</label>
+          <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleChange} placeholder="https://..." className={inputClass} />
         </div>
 
         <div>
-          <label>Contact Info (email or phone)</label>
-          <br />
-          <input type="text" name="contactInfo" value={formData.contactInfo} onChange={handleChange} required />
+          <label className={labelClass}>Contact Info (email or phone)</label>
+          <input type="text" name="contactInfo" value={formData.contactInfo} onChange={handleChange} required className={inputClass} />
         </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="text-clay text-sm">{error}</p>}
 
-        <button type="submit" disabled={submitting}>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full bg-amber text-navy font-semibold px-4 py-2 rounded-md hover:opacity-90 transition disabled:opacity-50"
+        >
           {submitting ? "Posting..." : "Post Item"}
         </button>
       </form>
