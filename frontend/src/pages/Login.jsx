@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,7 +22,9 @@ function Login() {
     try {
       const response = await api.post("/auth/login", { email, password });
       login(response.data.user, response.data.token);
-      navigate("/");
+      // If we arrived here via "requireLoginThen" redirect, go back to
+      // that exact page. Otherwise go to home as usual.
+      navigate(location.state?.from || "/");
     } catch (err) {
       setError(err.response?.data?.error || "Login failed. Try again.");
     } finally {
@@ -41,7 +45,24 @@ function Login() {
         </div>
         <div>
           <label className="block text-sm font-semibold mb-1">Password</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className={inputClass} />
+          {/* relative + absolute lets the toggle button sit INSIDE the
+              input's right edge, instead of taking its own space below it */}
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className={inputClass + " pr-16"}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-navy/60 hover:text-navy"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
         </div>
 
         {error && <p className="text-clay text-sm">{error}</p>}
