@@ -199,4 +199,4 @@ findit-campus/
 
 ## Author
 
-Built by [Vishal Pal](https://github.com/mr-vishalkpal) as a final-year college mini-project.
+Built by [Vishal Pal](https://github.com/mr-vishalkpal) as a third-year college mini-project.
